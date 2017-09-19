@@ -4,6 +4,13 @@ import re
 
 # Function to clean phone numbers
 def update_phoneNum(phone_num):
+    '''
+    Cleans phone numbers to match (xxx) xxx-xxxx phone number convention.
+    Arguments:
+        phone number (string)
+    Returns:
+        "cleaned" phone number (string)
+    '''
 
     # Dictionary containing one-off erroneous numbers after auditing
     one_offs = {'6667011': '(415) 666-7011',
@@ -21,7 +28,14 @@ def update_phoneNum(phone_num):
 
     ## Helper function to convert letters in phone numbers to numbers
     def letters_to_numbers(phone_num):
-
+        '''
+        Cleans phone numbers that have alphabetic mnemonics 
+        Arguments:
+            phone number (string)
+        Returns:
+            "cleaned" phone number (string)
+        '''
+        
         # Initialize regex to look for alphabetic characters
         ph_letters_re = re.compile(r'[a-zA-Z]+')
 
@@ -66,9 +80,20 @@ def update_phoneNum(phone_num):
 
     ## Helper function that formats a stripped phone number
     def phone_num_formatter(stripped_num):
+        '''
+        Formats a string that's been stripped
+        Arguments:
+            stripped phone number (string)
+        Returns:
+            "cleaned" phone number (string)
+        '''
         
         # Determine how to format 10-digit phone number
         def ten_digit_formatter(ten_dig_num):
+            '''
+            Formats string of 10 numbers into phone number convention
+            '''
+            
             last_four = ten_dig_num[-4:]
             middle_three = ten_dig_num[-7:-4]
             area_code = ten_dig_num[0:3]
@@ -93,7 +118,14 @@ def update_phoneNum(phone_num):
 
 # Function to standardize zip codes to 5 digit sequence
 def update_zipcode(zip_code):
-
+    '''
+    Formats a string that's been stripped
+    Arguments:
+        zip code (string)
+    Returns:
+        "cleaned" zip code (string)
+    '''
+    
     # Regex for valid San Francisco zipcodes
     zip_re = re.compile(r'^(94\d{3})(-\d{4})?$')   
     m = zip_re.search(zip_code)
@@ -220,11 +252,3 @@ def update_street_name(name):
             return name
     else:
         return name
-
-
-### TEST CASES ###
-if __name__ == "__main__":
-    test_cases =    ['14123', '94102', '94107-123']
-    
-    for case in test_cases:
-        print(update_zipcode(case))
